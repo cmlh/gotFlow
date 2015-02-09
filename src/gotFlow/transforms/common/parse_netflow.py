@@ -13,7 +13,7 @@ import subprocess
 def parse_netflow(flow):
     try:
         real_flows = []
-        flows = subprocess.check_output(['/usr/local/bin/nfdump', '-r', flow, '-b'])
+        flows = subprocess.check_output(['/usr/local/bin/nfdump', '-r', flow])
         f = flows.split('\n')
         c = len(f) - 5
         f = f[1:c]
