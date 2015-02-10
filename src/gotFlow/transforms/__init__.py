@@ -14,6 +14,6 @@ __all__ = [
     'getDestIP',
     'getDestPort',
     'getSourceIP',
-    # 'importfolder',
+    'importfolder',
     'common'
 ]

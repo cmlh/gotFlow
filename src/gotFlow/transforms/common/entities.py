@@ -34,5 +34,6 @@ class Folder(GotflowEntity):
 class DumpFile(GotflowEntity):
     pass
 
+
 class Port(GotflowEntity):
     pass

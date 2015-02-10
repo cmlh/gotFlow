@@ -3,7 +3,7 @@
 from common.parse_netflow import parse_netflow
 from canari.framework import configure
 from common.entities import Port
-from canari.maltego.message import UIMessage, Field
+from canari.maltego.message import UIMessage, Field, MatchingRule
 from canari.maltego.entities import IPv4Address
 
 __author__ = 'Adam Maxwell'
@@ -39,7 +39,7 @@ def dotransform(request, response):
             dip = i[6]
             dip = dip.split(':')[0]
             e = IPv4Address(dip)
-            e += Field('dumpfile', dump, displayname='Dump File')
+            e += Field('dumpfile', dump, displayname='Dump File', matchingrule='loose')
             response += e
         else:
             pass
