@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from canari.config import config
+
 # Python based netflow parser by Adam Maxwell (@catalyst256)
 
 # nfdump -r [file] -b
@@ -12,8 +14,9 @@ import subprocess
 
 def parse_netflow(flow):
     try:
+        nfdump = config['netflow/nfdump'].strip('\'')
         real_flows = []
-        flows = subprocess.check_output(['/usr/local/bin/nfdump', '-r', flow])
+        flows = subprocess.check_output([nfdump, '-r', flow])
         f = flows.split('\n')
         c = len(f) - 5
         f = f[1:c]
