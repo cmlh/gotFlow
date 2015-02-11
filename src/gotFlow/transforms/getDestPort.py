@@ -3,7 +3,7 @@
 from common.parse_netflow import parse_netflow
 from canari.framework import configure
 from common.entities import Port
-from canari.maltego.message import UIMessage, Field, MatchingRule
+from canari.maltego.message import Field
 from canari.maltego.entities import IPv4Address
 
 __author__ = 'Adam Maxwell'
@@ -35,11 +35,19 @@ def dotransform(request, response):
     for i in x:
         srcip = i[4]
         srcip = srcip.split(':')[0]
+        proto = i[3]
         if ip in srcip:
             dport = i[6]
             dport = dport.split(':')[1]
             e = Port(dport)
             e += Field('dumpfile', dump, displayname='Dump File', matchingrule='loose')
+            # e.linklabel = proto
+            if proto == 'TCP':
+                e.linkcolor = 0xff0000
+            if proto == 'UDP':
+                e.linkcolor = 0x002bff
+            if proto == 'ICMP':
+                e.linkcolor = 0x2f9a0d
             response += e
         else:
             pass

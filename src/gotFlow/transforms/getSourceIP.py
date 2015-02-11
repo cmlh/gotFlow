@@ -37,7 +37,15 @@ def dotransform(request, response):
     for i in x:
         sip = i[4]
         sip = sip.split(':')[0]
+        proto = i[3]
         e = IPv4Address(sip)
         e += Field('dumpfile', dump, displayname='Dump File', matchingrule='loose')
+        # e.linklabel = proto
+        if proto == 'TCP':
+            e.linkcolor = 0xff0000
+        if proto == 'UDP':
+            e.linkcolor = 0x002bff
+        if proto == 'ICMP':
+            e.linkcolor = 0x2f9a0d
         response += e
     return response

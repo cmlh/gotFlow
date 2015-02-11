@@ -35,11 +35,19 @@ def dotransform(request, response):
     for i in x:
         dstport = i[6]
         dstport = dstport.split(':')[1]
+        proto = i[3]
         if port in dstport:
             dip = i[6]
             dip = dip.split(':')[0]
             e = IPv4Address(dip)
             e += Field('dumpfile', dump, displayname='Dump File', matchingrule='loose')
+            # e.linklabel = proto
+            if proto == 'TCP':
+                e.linkcolor = 0xff0000
+            if proto == 'UDP':
+                e.linkcolor = 0x002bff
+            if proto == 'ICMP':
+                e.linkcolor = 0x2f9a0d
             response += e
         else:
             pass
