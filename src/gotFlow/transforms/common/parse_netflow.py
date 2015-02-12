@@ -16,7 +16,7 @@ def parse_netflow(flow):
     try:
         nfdump = config['netflow/nfdump'].strip('\'')
         real_flows = []
-        flows = subprocess.check_output([nfdump, '-r', flow])
+        flows = subprocess.check_output([nfdump, '-r', flow, '-b'])
         f = flows.split('\n')
         c = len(f) - 5
         f = f[1:c]

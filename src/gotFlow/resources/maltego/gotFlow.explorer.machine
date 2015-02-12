@@ -10,11 +10,8 @@ machine("gotFlow.explorer",
     onTimer(15) {
 
         run("netflow.v2.dump_2_getsourceip")
-        run("netflow.v2.dump_2_getdestport")
         run("netflow.v2.dump_2_getdestip")
         run("netflow.v2.dump_2_getdestport")
-        run("netflow.v2.dump_2_getdestip")
-
 
     }
 }

@@ -33,10 +33,10 @@ def dotransform(request, response):
     dump = request.fields['dumpfile']
     x = parse_netflow(dump)
     for i in x:
-        srcip = i[4]
-        srcip = srcip.split(':')[0]
+        dstip = i[6]
+        dstip = dstip.split(':')[0]
         proto = i[3]
-        if ip in srcip:
+        if ip in dstip:
             dport = i[6]
             dport = dport.split(':')[1]
             e = Port(dport)

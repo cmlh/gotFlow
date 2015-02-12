@@ -2,8 +2,7 @@
 
 from common.parse_netflow import parse_netflow
 from canari.framework import configure
-from common.entities import Port
-from canari.maltego.message import UIMessage, Field, MatchingRule
+from canari.maltego.message import Field
 from canari.maltego.entities import IPv4Address
 
 __author__ = 'Adam Maxwell'
@@ -25,18 +24,18 @@ __all__ = [
     label='[NF] - Get Destination IP',
     description='Get Destination IP from dump file',
     uuids=['netflow.v2.dump_2_getdestip'],
-    inputs=[('Netflow', Port)],
+    inputs=[('Netflow', IPv4Address)],
     debug=True
 )
 def dotransform(request, response):
-    port = request.value
+    sip = request.value
     dump = request.fields['dumpfile']
     x = parse_netflow(dump)
     for i in x:
-        dstport = i[6]
-        dstport = dstport.split(':')[1]
+        srcip = i[4]
+        srcip = srcip.split(':')[0]
         proto = i[3]
-        if port in dstport:
+        if sip in srcip:
             dip = i[6]
             dip = dip.split(':')[0]
             e = IPv4Address(dip)
